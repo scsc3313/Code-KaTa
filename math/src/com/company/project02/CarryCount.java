@@ -28,9 +28,9 @@ public class CarryCount {
         num2 = "0" + numInt2;
 
         if (num1.length() > num2.length()) {
-            num2 = appendZero(num1, num2);
+            num2 = paddingString(num2, "0", num1.length() - num2.length(), true);
         } else {
-            num1 = appendZero(num2, num1);
+            num1 = paddingString(num1, "0", num2.length() - num1.length(), true);
         }
 
         System.out.println(num1);
@@ -52,13 +52,18 @@ public class CarryCount {
         System.out.println("카운트 : " + count);
     }
 
-    private String appendZero(String big, String small) {  //중복되는 메소드 extract
-        StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < big.length() - small.length(); i++) {
-            stringBuilder.append("0");
+    private String paddingString(String string, String padding, int count, boolean forward) {
+        String tempString = "";
+        for (int i = 0; i < count; i++) {
+            tempString += padding;
         }
-        stringBuilder.append(small);
-        return stringBuilder.toString();
+        if (forward){
+            tempString += string;
+            return tempString;
+        }
+        else{
+            string += tempString;
+            return string;
+        }
     }
-
 }
