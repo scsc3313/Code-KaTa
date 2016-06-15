@@ -1,4 +1,4 @@
-package com.company.project2;
+package com.company.project02;
 
 /**
  * Created by HSH on 16. 6. 11..
@@ -21,27 +21,16 @@ public class CarryCount {
 
     private void control() {
 
-        int numInt1 = 12;
+        int numInt1 = 1;
         int numInt2 = 999;
 
         num1 = "0" + numInt1;
         num2 = "0" + numInt2;
 
-        StringBuilder stringBuilder = new StringBuilder();
-
         if (num1.length() > num2.length()) {
-            for (int i = 0; i < num1.length() - num2.length(); i++) {
-                stringBuilder.append("0");
-            }
-            stringBuilder.append(num2);
-            num2 = stringBuilder.toString();
-
+            num2 = appendZero(num1, num2);
         } else {
-            for (int i = 0; i < num2.length() - num1.length(); i++) {
-                stringBuilder.append("0");
-            }
-            stringBuilder.append(num1);
-            num1 = stringBuilder.toString();
+            num1 = appendZero(num2, num1);
         }
 
         System.out.println(num1);
@@ -59,12 +48,17 @@ public class CarryCount {
                 carryArray[i - 1] = 1;
                 count++;
             }
-
-
         }
         System.out.println("카운트 : " + count);
+    }
 
-
+    private String appendZero(String big, String small) {  //중복되는 메소드 extract
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < big.length() - small.length(); i++) {
+            stringBuilder.append("0");
+        }
+        stringBuilder.append(small);
+        return stringBuilder.toString();
     }
 
 }

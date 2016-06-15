@@ -1,4 +1,4 @@
-package com.company.project2;
+package com.company.project02;
 
 import java.util.Random;
 
@@ -20,10 +20,11 @@ public class CarryCount2 {
         int num1 = random.nextInt(10000);
         int num2 = random.nextInt(10000);
 
+//        int num1 = 9999, num2 = 1;
         System.out.println(num1 + " " + num2);
 
         int carry = 0;
-        while (num1 > 1 && num2 > 1) {
+        while (num1 >= 1 || num2 >= 1) {
             if (num1 % 10 + num2 % 10 + carry > 9) { //각 자리수를 더하고 캐리 값을 더해 10보다 크면 자리올림이 일어난 것!
                 carry = 1;
                 totalCount++;
