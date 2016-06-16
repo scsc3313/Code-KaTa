@@ -5,7 +5,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class DuplicateCount {
 
-    private HashMap<String, Integer> duplicateCountHashMap;
+    private HashMap<String, AtomicInteger> duplicateCountHashMap;
 
     DuplicateCount() {
         duplicateCountHashMap = new HashMap<>();
@@ -18,7 +18,6 @@ public class DuplicateCount {
 
     private void control() {
 
-        String[] tokens;
 
         String content = "신 전 부회장은 10일 검찰 압수수색 소식을 접하고 상당히 놀란 것으로 전해졌다. 이어 긴급성명을 통해 \"창업 이후 최대 위기상황이라는 중대성에 비춰 정기 주총에 앞서 롯데홀딩스 및 종업원지주이사회에 대해 경영정상화를 위한 긴급협의의 장을 설치하길 요구한다\"고 밝혔다.\n" +
                 "\n" +
@@ -34,13 +33,14 @@ public class DuplicateCount {
                 "\n" +
                 "신 전 부회장으로서는 절호의 기회지만 그 역시 롯데 일가라는 점에서 신 회장의 '원(one) 롯데, 원 리더' 체제를 뒤집고 역전에 성공할 수 있을지는 미지수다.";
 
-        tokens = content.split(" ");
+        String[] tokens = content.split(" ");
         for (String token : tokens) {
-            AtomicInteger atomicInteger = new AtomicInteger(0);
-            if (duplicateCountHashMap.containsKey(token)) {
-                atomicInteger.set(duplicateCountHashMap.get(token));
+            AtomicInteger count = duplicateCountHashMap.get(token);
+            if (count == null) {
+                count = new AtomicInteger(0);
             }
-            duplicateCountHashMap.put(token, atomicInteger.incrementAndGet());
+            count.incrementAndGet();
+            duplicateCountHashMap.put(token, count);
         }
 
         System.out.println(duplicateCountHashMap);
